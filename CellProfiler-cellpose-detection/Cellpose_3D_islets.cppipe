@@ -1,0 +1,704 @@
+CellProfiler Pipeline: http://www.cellprofiler.org
+Version:5
+DateRevision:421
+GitHash:
+ModuleCount:54
+HasImagePlaneDetails:False
+
+Images:[module_num:1|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['To begin creating your project, use the Images module to compile a list of files and/or folders that you want to analyze. You can also specify a set of rules to include only the desired files in your selected folders.', '- v8.8: Finished 1.0 pipeline sent to collaborators. Note: use with 1 worker (File > Preferences) and make sure you have the correct pull request for CellProfiler and CellProfiler Analyst to use.', '- v8.9: added correct voxel dimensions to NamesAndTypes']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    :
+    Filter images?:Images only
+    Select the rule criteria:and (extension does isimage) (directory doesnot containregexp "[\\\\/]\\.")
+
+Metadata:[module_num:2|svn_version:'Unknown'|variable_revision_number:6|show_window:False|notes:['The Metadata module optionally allows you to extract information describing your images (i.e, metadata) which will be stored along with your measurements. This information can be contained in the file name and/or location, or in an external file.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Extract metadata?:Yes
+    Metadata data type:Text
+    Metadata types:{}
+    Extraction method count:1
+    Metadata extraction method:Extract from file/folder names
+    Metadata source:File name
+    Regular expression to extract from file name:^(?P<well>.*)_(?P<tfield>.*)_(?P<ChannelID>.*)-[0-9].tif
+    Regular expression to extract from folder name:(?P<Date>[0-9]{4}_[0-9]{2}_[0-9]{2})$
+    Extract metadata from:All images
+    Select the filtering criteria:and (file does contain "")
+    Metadata file location:Elsewhere...|
+    Match file and image metadata:[]
+    Use case insensitive matching?:No
+    Metadata file name:None
+    Does cached metadata exist?:No
+
+NamesAndTypes:[module_num:3|svn_version:'Unknown'|variable_revision_number:8|show_window:False|notes:['The NamesAndTypes module allows you to assign a meaningful name to each image by which other modules will refer to it.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Assign a name to:Images matching rules
+    Select the image type:Grayscale image
+    Name to assign these images:DNA
+    Match metadata:[]
+    Image set matching method:Order
+    Set intensity range from:Image metadata
+    Assignments count:4
+    Single images count:0
+    Maximum intensity:255.0
+    Process as 3D?:Yes
+    Relative pixel spacing in X:0.1625
+    Relative pixel spacing in Y:0.1625
+    Relative pixel spacing in Z:1.5
+    Select the rule criteria:and (metadata does ChannelID "DNA")
+    Name to assign these images:DNA
+    Name to assign these objects:Cell
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+    Select the rule criteria:and (metadata does ChannelID "Ki67")
+    Name to assign these images:Ki67
+    Name to assign these objects:Cell
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+    Select the rule criteria:and (metadata does ChannelID "Insulin")
+    Name to assign these images:Insulin
+    Name to assign these objects:Cell
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+    Select the rule criteria:and (metadata does ChannelID "Glucagon")
+    Name to assign these images:Glucagon
+    Name to assign these objects:Cell
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+
+Groups:[module_num:4|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['The Groups module optionally allows you to split your list of images into image subsets (groups) which will be processed independently of each other. Examples of groupings include screening batches, microtiter plates, time-lapse movies, etc.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Do you want to group your images?:No
+    grouping metadata count:1
+    Metadata category:None
+
+Resize:[module_num:5|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:DNA
+    Name the output image:ResizeDNA
+    Resizing method:Resize by a fraction or multiple of the original size
+    Resizing factor:0.25
+    Width of the final image:100
+    Height of the final image:100
+    Interpolation method:Nearest Neighbor
+    Method to specify the dimensions:Manual
+    Select the image with the desired dimensions:None
+    Additional image count:0
+
+Resize:[module_num:6|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Insulin
+    Name the output image:ResizeInsulin
+    Resizing method:Resize by a fraction or multiple of the original size
+    Resizing factor:0.25
+    Width of the final image:100
+    Height of the final image:100
+    Interpolation method:Nearest Neighbor
+    Method to specify the dimensions:Manual
+    Select the image with the desired dimensions:None
+    Additional image count:0
+
+Resize:[module_num:7|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Glucagon
+    Name the output image:ResizeGlucagon
+    Resizing method:Resize by a fraction or multiple of the original size
+    Resizing factor:0.25
+    Width of the final image:100
+    Height of the final image:100
+    Interpolation method:Nearest Neighbor
+    Method to specify the dimensions:Manual
+    Select the image with the desired dimensions:None
+    Additional image count:0
+
+RescaleIntensity:[module_num:8|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:ResizeDNA
+    Name the output image:rescaleDNA
+    Rescaling method:Stretch each image to use the full intensity range
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+RescaleIntensity:[module_num:9|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:ResizeGlucagon
+    Name the output image:rescaleGlucagon
+    Rescaling method:Stretch each image to use the full intensity range
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+RescaleIntensity:[module_num:10|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:ResizeInsulin
+    Name the output image:rescaleInsulin
+    Rescaling method:Stretch each image to use the full intensity range
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+RescaleIntensity:[module_num:11|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:ResizeDNA
+    Name the output image:BrightDNA
+    Rescaling method:Choose specific values to be reset to the full intensity range
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.05,.3
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+MedianFilter:[module_num:12|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:rescaleDNA
+    Name the output image:FilteredDNA
+    Window:2
+
+MedianFilter:[module_num:13|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:rescaleInsulin
+    Name the output image:FilteredInsulin
+    Window:2
+
+MedianFilter:[module_num:14|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:ResizeGlucagon
+    Name the output image:FilteredGlucagon
+    Window:2
+
+RescaleIntensity:[module_num:15|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:FilteredGlucagon
+    Name the output image:mathGlu
+    Rescaling method:Choose specific values to be reset to the full intensity range
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0,1
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+RescaleIntensity:[module_num:16|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:FilteredInsulin
+    Name the output image:mathIns
+    Rescaling method:Choose specific values to be reset to the full intensity range
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0,1
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+ImageMath:[module_num:17|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:Add
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:Yes
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:Ins_and_Glu
+    Image or measurement?:Image
+    Select the first image:mathGlu
+    Multiply the first image by:10
+    Measurement:
+    Image or measurement?:Image
+    Select the second image:mathIns
+    Multiply the second image by:1.0
+    Measurement:
+
+ImageMath:[module_num:18|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:Add
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:Yes
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:Islet_all
+    Image or measurement?:Image
+    Select the first image:Ins_and_Glu
+    Multiply the first image by:3
+    Measurement:
+    Image or measurement?:Image
+    Select the second image:FilteredDNA
+    Multiply the second image by:1.0
+    Measurement:
+
+MedianFilter:[module_num:19|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Islet_all
+    Name the output image:Islet_all_median
+    Window:3
+
+Threshold:[module_num:20|svn_version:'Unknown'|variable_revision_number:12|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Islet_all_median
+    Name the output image:Threshold
+    Threshold strategy:Global
+    Thresholding method:Minimum Cross-Entropy
+    Threshold smoothing scale:0.0
+    Threshold correction factor:.9
+    Lower and upper bounds on threshold:0.0,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Minimum Cross-Entropy
+
+RemoveHoles:[module_num:21|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Threshold
+    Name the output image:ALL_cell_mask
+    Size of holes to fill:10
+
+RunCellpose:[module_num:22|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:FilteredDNA
+    Expected object diameter:12
+    Detection mode:nuclei
+    Name the output object:Nuclei_pose
+    Use GPU:No
+    Use averaging:Yes
+    Supply nuclei image as well?:No
+    Select the nuclei image:None
+    Save probability image?:No
+    Name the probability image:Probabilities
+    Location of the pre-trained model file:Elsewhere...|
+    Pre-trained model file name:cyto_0
+    Flow threshold:0.4
+    Cell probability threshold:0.0
+    GPU memory share for each worker:0.1
+    Stitch Threshold:0.0
+    Use 3D:Yes
+    Minimum size:10
+    Z rescaling factor (anisotropy):1.0
+    Use Omnipose for mask reconstruction:No
+    Invert images:No
+
+ConvertObjectsToImage:[module_num:23|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input objects:Nuclei_pose
+    Name the output image:Nuclei_map
+    Select the color format:uint16
+    Select the colormap:Default
+
+Watershed:[module_num:24|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:ALL_cell_mask
+    Name the output object:Cells_watershed
+    Use advanced settings?:No
+    Generate from:Markers
+    Markers:Nuclei_map
+    Mask:ALL_cell_mask
+    Connectivity:1
+    Compactness:0.0
+    Footprint:8
+    Downsample:1
+    Separate watershed labels:No
+    Declump method:Intensity
+    Reference Image:ImageAfterMath
+    Segmentation distance transform smoothing factor:1.0
+    Minimum distance between seeds:1
+    Minimum absolute internal distance:0.0
+    Pixels from border to exclude:0
+    Maximum number of seeds:-1
+    Structuring element for seed dilation:Ball,1
+
+ConvertObjectsToImage:[module_num:25|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input objects:Nuclei_pose
+    Name the output image:MatchedNuclei_Map
+    Select the color format:uint16
+    Select the colormap:Default
+
+ConvertObjectsToImage:[module_num:26|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input objects:Cells_watershed
+    Name the output image:Cell_map
+    Select the color format:uint16
+    Select the colormap:Default
+
+OverlayOutlines:[module_num:27|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Display outlines on a blank image?:No
+    Select image on which to display outlines:FilteredInsulin
+    Name the output image:Cell_outlines
+    Outline display mode:Color
+    Select method to determine brightness of outlines:Max of image
+    How to outline:Inner
+    Select outline color:yellow
+    Select objects to display:Cells_watershed
+
+OverlayOutlines:[module_num:28|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Display outlines on a blank image?:No
+    Select image on which to display outlines:rescaleDNA
+    Name the output image:Cell_outlines_on_nuclei
+    Outline display mode:Color
+    Select method to determine brightness of outlines:Max of image
+    How to outline:Inner
+    Select outline color:yellow
+    Select objects to display:Cells_watershed
+
+MaskImage:[module_num:29|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Cell_map
+    Name the output image:Cytoplasm_map
+    Use objects or an image as a mask?:Image
+    Select object for mask:Cells
+    Select image for mask:MatchedNuclei_Map
+    Invert the mask?:Yes
+
+ConvertImageToObjects:[module_num:30|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Cytoplasm_map
+    Name the output object:PreCytoplasms
+    Convert to boolean image:No
+    Preserve original labels:Yes
+    Background label:0
+    Connectivity:0
+
+RelateObjects:[module_num:31|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:['(get rid of all relate and filters previous) Relate cytoplasms back to cells. Then 2 relates down here and filter objects. Cell parent, cytoplasm children']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Parent objects:Cells_watershed
+    Child objects:PreCytoplasms
+    Calculate child-parent distances?:None
+    Calculate per-parent means for all child measurements?:No
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:RelateCytoplasms
+    Parent name:None
+
+RelateObjects:[module_num:32|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:['Relate cell parent to nuclei childen']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Parent objects:Cells_watershed
+    Child objects:Nuclei_pose
+    Calculate child-parent distances?:None
+    Calculate per-parent means for all child measurements?:Yes
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:RelateNuclei
+    Parent name:None
+
+MeasureObjectSizeShape:[module_num:33|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select object sets to measure:Cells_watershed, Nuclei_pose
+    Calculate the Zernike features?:No
+    Calculate the advanced features?:No
+
+FilterObjects:[module_num:34|svn_version:'Unknown'|variable_revision_number:9|show_window:False|notes:['Keep any cells with 1 cytoplasm child and 1 nucleus child (add another measurement), then relabel the nuclei and cytoplasm range 0.5 ot 1.5 cytoplasm and nucleus. ', 'Consider another round of relating after measurements…', '', 'Maybe try relabeling the nuclei_pose instead of RelateNuclei']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the objects to filter:Cells_watershed
+    Name the output objects:Filter_cells
+    Select the filtering mode:Measurements
+    Select the filtering method:Limits
+    Select the objects that contain the filtered objects:None
+    Select the location of the rules or classifier file:Elsewhere...|
+    Rules or classifier file name:rules.txt
+    Class number:1
+    Measurement count:2
+    Additional object count:0
+    Assign overlapping child to:Both parents
+    Keep removed objects as a seperate set?:No
+    Name the objects removed by the filter:RemovedObjects
+    Select the measurement to filter by:Children_Nuclei_pose_Count
+    Filter using a minimum measurement value?:Yes
+    Minimum value:.5
+    Filter using a maximum measurement value?:Yes
+    Maximum value:1.5
+    Select the measurement to filter by:Children_PreCytoplasms_Count
+    Filter using a minimum measurement value?:Yes
+    Minimum value:0.5
+    Filter using a maximum measurement value?:Yes
+    Maximum value:1.5
+
+RelateObjects:[module_num:35|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:['Intensity values in labelmap are correct at this point in the display']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Parent objects:Filter_cells
+    Child objects:RelateNuclei
+    Calculate child-parent distances?:None
+    Calculate per-parent means for all child measurements?:Yes
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:RelateNuclei_postFilter
+    Parent name:None
+
+RelateObjects:[module_num:36|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Parent objects:Filter_cells
+    Child objects:RelateCytoplasms
+    Calculate child-parent distances?:None
+    Calculate per-parent means for all child measurements?:Yes
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:RelateCytoplasms_postFilter
+    Parent name:None
+
+ResizeObjects:[module_num:37|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input object:Filter_cells
+    Name the output object:Cells
+    Method:Factor
+    Factor:4
+    Width:100
+    Height:100
+    Select the image with the desired dimensions:None
+
+ResizeObjects:[module_num:38|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input object:RelateCytoplasms_postFilter
+    Name the output object:SizedUpCytoplasms
+    Method:Factor
+    Factor:4
+    Width:100
+    Height:100
+    Select the image with the desired dimensions:None
+
+ResizeObjects:[module_num:39|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input object:RelateNuclei_postFilter
+    Name the output object:SizedUpNuclei
+    Method:Factor
+    Factor:4
+    Width:100
+    Height:100
+    Select the image with the desired dimensions:None
+
+MeasureObjectSizeShape:[module_num:40|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Select object sets to measure:Cells, SizedUpCytoplasms, SizedUpNuclei
+    Calculate the Zernike features?:No
+    Calculate the advanced features?:No
+
+MeasureObjectIntensity:[module_num:41|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:Glucagon, Insulin, Ki67
+    Select objects to measure:Cells, SizedUpCytoplasms, SizedUpNuclei
+
+RelateObjects:[module_num:42|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Parent objects:Cells
+    Child objects:SizedUpNuclei
+    Calculate child-parent distances?:None
+    Calculate per-parent means for all child measurements?:Yes
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:Nuclei
+    Parent name:None
+
+RelateObjects:[module_num:43|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Parent objects:Cells
+    Child objects:SizedUpCytoplasms
+    Calculate child-parent distances?:None
+    Calculate per-parent means for all child measurements?:Yes
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:Cytoplasms
+    Parent name:None
+
+ConvertObjectsToImage:[module_num:44|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input objects:Filter_cells
+    Name the output image:Cells_postFilter_map
+    Select the color format:uint16
+    Select the colormap:Default
+
+ConvertObjectsToImage:[module_num:45|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:['NOW the intensities are different. Could this be a convert=TRUE situation?']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Select the input objects:RelateNuclei_postFilter
+    Name the output image:Nuclei_postFilter_map
+    Select the color format:uint16
+    Select the colormap:Default
+
+ConvertObjectsToImage:[module_num:46|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input objects:RelateCytoplasms_postFilter
+    Name the output image:Cytoplasms_postFilter_map
+    Select the color format:uint16
+    Select the colormap:Default
+
+OverlayObjects:[module_num:47|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Input:BrightDNA
+    Name the output image:OV_cytoplasm
+    Objects:RelateCytoplasms_postFilter
+    Opacity:0.3
+
+SaveImages:[module_num:48|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:Cytoplasms_postFilter_map
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:DNA
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:_cytoplasmMap
+    Saved file format:tiff
+    Output file location:Default Output Folder|
+    Image bit depth:16-bit integer
+    Overwrite existing files without warning?:No
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:Yes
+
+SaveImages:[module_num:49|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:Cells_postFilter_map
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:DNA
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:_CellMap
+    Saved file format:tiff
+    Output file location:Default Output Folder|
+    Image bit depth:16-bit integer
+    Overwrite existing files without warning?:No
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:Yes
+
+SaveImages:[module_num:50|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:Nuclei_postFilter_map
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:DNA
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:_NucleiMap
+    Saved file format:tiff
+    Output file location:Default Output Folder|
+    Image bit depth:16-bit integer
+    Overwrite existing files without warning?:No
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:Yes
+
+SaveImages:[module_num:51|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:Cell_outlines
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:DNA
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:_cellOutlines
+    Saved file format:tiff
+    Output file location:Default Output Folder|Documents\\test_cellpose_50
+    Image bit depth:16-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:Yes
+
+SaveImages:[module_num:52|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:Cell_outlines_on_nuclei
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:DNA
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:_cellOutlines_onNuclei
+    Saved file format:tiff
+    Output file location:Default Output Folder|Documents\\test_cellpose_50
+    Image bit depth:16-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:Yes
+
+SaveImages:[module_num:53|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:OV_cytoplasm
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:DNA
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:_cytoplasmoverlay
+    Saved file format:tiff
+    Output file location:Default Output Folder|Documents\\test_cellpose_50
+    Image bit depth:16-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:Yes
+
+ExportToDatabase:[module_num:54|svn_version:'Unknown'|variable_revision_number:28|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Database type:SQLite
+    Database name:DefaultDB
+    Add a prefix to table names?:Yes
+    Table prefix:p_20steatosis_
+    Output file location:Default Output Folder|
+    Create a CellProfiler Analyst properties file?:Yes
+    Database host:
+    Username:
+    Password:
+    Name the SQLite database file:DefaultDB.db
+    Calculate the per-image mean values of object measurements?:No
+    Calculate the per-image median values of object measurements?:No
+    Calculate the per-image standard deviation values of object measurements?:No
+    Calculate the per-well mean values of object measurements?:No
+    Calculate the per-well median values of object measurements?:No
+    Calculate the per-well standard deviation values of object measurements?:No
+    Export measurements for all objects to the database?:Select...
+    Select the objects:Cells
+    Maximum # of characters in a column name:64
+    Create one table per object, a single object table or a single object view?:Single object table
+    Enter an image url prepend if you plan to access your files via http:
+    Write image thumbnails directly to the database?:Yes
+    Select the images for which you want to save thumbnails:Glucagon,Insulin,Ki67
+    Auto-scale thumbnail pixel intensities?:Yes
+    Select the plate type:None
+    Select the plate metadata:None
+    Select the well metadata:None
+    Include information for all images, using default values?:Yes
+    Properties image group count:1
+    Properties group field count:1
+    Properties filter field count:0
+    Workspace measurement count:1
+    Experiment name:p_20steatosis
+    Which objects should be used for locations?:Cells
+    Enter a phenotype class table name if using the Classifier tool in CellProfiler Analyst:
+    Export object relationships?:Yes
+    Overwrite without warning?:Never
+    Access CellProfiler Analyst images via URL?:No
+    Select the classification type:Object
+    Select an image to include:None
+    Use the image name for the display?:Yes
+    Image name:Channel1
+    Channel color:red
+    Do you want to add group fields?:No
+    Enter the name of the group:
+    Enter the per-image columns which define the group, separated by commas:ImageNumber, Image_Metadata_Plate, Image_Metadata_Well
+    Do you want to add filter fields?:No
+    Automatically create a filter for each plate?:No
+    Create a CellProfiler Analyst workspace file?:No
+    Select the measurement display tool:ScatterPlot
+    Type of measurement to plot on the X-axis:Image
+    Enter the object name:None
+    Select the X-axis measurement:None
+    Select the X-axis index:ImageNumber
+    Type of measurement to plot on the Y-axis:Image
+    Enter the object name:None
+    Select the Y-axis measurement:None
+    Select the Y-axis index:ImageNumber
